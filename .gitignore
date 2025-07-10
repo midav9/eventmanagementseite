@@ -1,0 +1,8 @@
+# Alles ignorieren
+*
+
+# Aber alle .php-Dateien NICHT ignorieren
+!*.php
+
+# Auch .php-Dateien in Unterordnern NICHT ignorieren
+!**/*.php
