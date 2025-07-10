@@ -167,7 +167,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Unsere Empfehlungen</h2>
+                        <h2 class="card-title">Unser Empfehlungen</h2>
                         <p class="card-text">Hier finden Sie personalisierte Empfehlungen basierend auf Ihren Interessen und Aktivitäten.</p>
                         <a class="btn btn-secondary" href="http://localhost/events.php" role="button">Anzeigen</a>
                     </div>
