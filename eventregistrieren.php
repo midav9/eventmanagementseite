@@ -199,7 +199,6 @@ if ($eventBild !== null) {
                         <input type="checkbox" class="form-check-input" id="terms_conditions" required>
                         <label class="form-check-label" for="terms_conditions">Ich habe die <a href="agb.php">AGB und Datenschutzbestimmungen</a> gelesen und stimme ihnen zu. <span class="text-danger">*</span></label>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Event absenden</button>
                 </form>
             </div>

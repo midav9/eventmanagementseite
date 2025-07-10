@@ -146,7 +146,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <!-- Pending Events Liste -->
+
     <?php
     include "dbconnect.php";
     $pendingEvents = [];
