@@ -1,5 +1,5 @@
 <?php
-include "dbconnect.php"; 
+include "dbconnect.php";
 
 $events = []; 
 
@@ -60,8 +60,8 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="body.css">
     <title>Unsere Events - Übersicht</title>
+    <link rel="stylesheet" href="body.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -71,7 +71,7 @@ $conn->close();
             color: #333;
         }
         .header {
-            background-color: #0056b3;
+            background-color: #005fc5ff;
             color: white;
             padding: 30px 0;
             text-align: center;
@@ -95,6 +95,7 @@ $conn->close();
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         .event-card img {
+            display: inline;
             width: 100%;
             height: 200px;
             object-fit: cover;
@@ -209,7 +210,7 @@ $conn->close();
                         <div class="event-card flex-fill">
                             <img src="event_image.php?id=<?php echo $event['event_id']; ?>" alt="Event Image">
                             <div class="event-card-body">
-                                <h2 class="event-card-title"><?php echo htmlspecialchars($even t['name']); ?></h2>
+                                <h2 class="event-card-title"><?php echo htmlspecialchars($event['name']); ?></h2>
                                 <p class="event-info"><i class="fas fa-calendar-alt"></i> Datum: <?php echo date('d.m.Y', strtotime($event['datum'])); ?></p>
                                 <p class="event-info"><i class="fas fa-map-marker-alt"></i> Ort: <?php echo htmlspecialchars($event['platz']); ?></p>
                                 <p class="event-info"><i class="fas fa-microchip"></i> Kategorie: <?php echo htmlspecialchars($event['kategorie']); ?></p>
@@ -221,7 +222,6 @@ $conn->close();
                                 <div class="d-flex justify-content-between align-items-center">
                                     <?php if (!is_null($event['preis']) && $event['preis'] > 0): ?>
                                         <p class="event-price"><?php echo number_format($event['preis'], 2, ',', '.'); ?> &euro;</p>
-                                        <a class="btn btn-primary" href="#" role="button">Kaufen</a>
                                     <?php else: ?>
                                         <p class="event-price">Kostenlos</p>
                                     <?php endif; ?>
