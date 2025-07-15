@@ -149,15 +149,6 @@ $conn->close();
             border-color: #d39e00;
             color: #333;
         }
-        .btn-primary {
-            background-color: #18f504ff;
-            border-color: #1cf84bff;
-            color: green;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
         .no-events-message {
             text-align: center;
             padding: 50px;
@@ -218,7 +209,7 @@ $conn->close();
                         <div class="event-card flex-fill">
                             <img src="event_image.php?id=<?php echo $event['event_id']; ?>" alt="Event Image">
                             <div class="event-card-body">
-                                <h2 class="event-card-title"><?php echo htmlspecialchars($event['name']); ?></h2>
+                                <h2 class="event-card-title"><?php echo htmlspecialchars($even t['name']); ?></h2>
                                 <p class="event-info"><i class="fas fa-calendar-alt"></i> Datum: <?php echo date('d.m.Y', strtotime($event['datum'])); ?></p>
                                 <p class="event-info"><i class="fas fa-map-marker-alt"></i> Ort: <?php echo htmlspecialchars($event['platz']); ?></p>
                                 <p class="event-info"><i class="fas fa-microchip"></i> Kategorie: <?php echo htmlspecialchars($event['kategorie']); ?></p>
