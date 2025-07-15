@@ -6,6 +6,7 @@
     <title>AllEvents - Dein Portal für unvergessliche Momente</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="body.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -117,6 +118,13 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+        <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ml-2">
+            🌙 Dark Mode
+        </button>
+        </li>
+        </ul>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
@@ -160,7 +168,7 @@
                     <div class="card-body">
                         <h2 class="card-title">Große Events</h2>
                         <p class="card-text">Erleben Sie die größten Events in Deutschland und Europaweit!ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</p>
-                        <a class="btn btn-secondary" href="#" role="button">Anzeigen</a>
+                        <a class="btn btn-secondary" href="http://localhost/events.php?suchbegriff=&kategorie=&datum=&kapazitaet=5000" role="button">Anzeigen</a>
                     </div>
                 </div>
             </div>
@@ -179,5 +187,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="darkmode.js"></script>
 </body>
 </html>

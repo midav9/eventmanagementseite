@@ -1,7 +1,6 @@
 <?php
 session_start();
-
-$passwort = "Admin123";
+include "dbconnectadmin.php";
 
 // Logout-Logik
 if (isset($_GET['logout'])) {
@@ -11,15 +10,37 @@ if (isset($_GET['logout'])) {
 }
 
 if (!isset($_SESSION['user_ok'])) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pw']) && $_POST['pw'] === $passwort) {
-        $_SESSION['user_ok'] = true;
-        header("Location: User.php");
-        exit;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['adminname'], $_POST['pw'])) {
+        $adminname = $_POST['adminname'];
+        $pw = $_POST['pw'];
+        $stmt = $conn->prepare("SELECT passwort, status, lvl FROM admins WHERE name=? LIMIT 1");
+        // Die Spalten heißen: name, passwort, status, lvl
+        $stmt->bind_param("s", $adminname);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows === 1) {
+            $stmt->bind_result($dbpw, $status, $lvl);
+            $stmt->fetch();
+            if ($pw === $dbpw) { // Für produktiv: password_verify($pw, $dbpw)
+                $_SESSION['user_ok'] = true;
+                $_SESSION['admin_name'] = $adminname;
+                $_SESSION['admin_status'] = $status;
+                $_SESSION['admin_lvl'] = $lvl;
+                header("Location: User.php");
+                exit;
+            } else {
+                $login_error = "Fehler: Falsches Passwort!";
+            }
+        } else {
+            $login_error = "Fehler: Falscher Adminname!";
+        }
+        $stmt->close();
     }
     ?>
     <!DOCTYPE html>
     <html lang="de">
     <head>
+        <link rel="stylesheet" href="body.css">
         <meta charset="UTF-8">
         <title>Admin Login erforderlich</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -28,8 +49,14 @@ if (!isset($_SESSION['user_ok'])) {
         <div class="container" style="max-width:400px;margin-top:100px;">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title mb-4">Admin Passwort erforderlich</h3>
+                    <h3 class="card-title mb-4">Admin Login erforderlich</h3>
+                    <?php if (isset($login_error)): ?>
+                        <div class="alert alert-danger"><?php echo $login_error; ?></div>
+                    <?php endif; ?>
                     <form method="post">
+                        <div class="form-group">
+                            <input type="text" name="adminname" class="form-control" placeholder="Admin Name" required>
+                        </div>
                         <div class="form-group">
                             <input type="password" name="pw" class="form-control" placeholder="Passwort" required>
                         </div>
@@ -44,7 +71,6 @@ if (!isset($_SESSION['user_ok'])) {
     exit;
 }
 
-// Event-Approve-Logik
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['approve_event_id'])) {
     include "dbconnect.php";
     $eventId = (int)$_POST['approve_event_id'];
@@ -207,7 +233,7 @@ $result = $conn->query($sql);
     <!-- /Pending Events Liste -->
 
 </div>
-
+<script src="darkmode.js"></script>
 </body>
 <?php
 // session_destroy(); // Entfernt, Logout nur noch über den Button!

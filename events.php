@@ -23,6 +23,11 @@ if (!empty($_GET['datum'])) {
     $params[] = $_GET['datum'];
     $types .= "s";
 }
+if (!empty($_GET['kapazitaet'])) {
+    $where[] = "kapazität >= ?";
+    $params[] = $_GET['kapazitaet'];
+    $types .= "i";
+}
 
 $sql = "SELECT event_id, name, datum, platz, preis, art, organisator, kategorie, kapazität, status FROM event";
 if ($where) {
@@ -55,6 +60,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="body.css">
     <title>Unsere Events - Übersicht</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -143,6 +149,15 @@ $conn->close();
             border-color: #d39e00;
             color: #333;
         }
+        .btn-primary {
+            background-color: #18f504ff;
+            border-color: #1cf84bff;
+            color: green;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
         .no-events-message {
             text-align: center;
             padding: 50px;
@@ -171,30 +186,31 @@ $conn->close();
     <div class="container">
 
         <form method="GET" class="mb-4">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <input type="text" name="suchbegriff" class="form-control" placeholder="Eventname oder Ort" value="<?php echo htmlspecialchars($_GET['suchbegriff'] ?? ''); ?>">
-                </div>
-                <div class="form-group col-md-3">
-                    <select name="kategorie" class="form-control">
-                        <option value="">Kategorie wählen</option>
-                        <option value="Musik" <?php if(($_GET['kategorie'] ?? '') == 'Musik') echo 'selected'; ?>>Musik</option>
-                        <option value="Technologie" <?php if(($_GET['kategorie'] ?? '') == 'Technologie') echo 'selected'; ?>>Technologie</option>
-                        <option value="Gaming" <?php if(($_GET['kategorie'] ?? '') == 'Gaming') echo 'selected'; ?>>Gaming</option>
-                        <option value="Kultur" <?php if(($_GET['kategorie'] ?? '') == 'Kultur') echo 'selected'; ?>>Kultur</option>
-                        <option value="Sport" <?php if(($_GET['kategorie'] ?? '') == 'Sport') echo 'selected'; ?>>Sport</option>
-                      
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <input type="date" name="datum" class="form-control" value="<?php echo htmlspecialchars($_GET['datum'] ?? ''); ?>">
-                </div>
-                <div class="form-group col-md-2">
-                    <button type="submit" class="btn btn-primary btn-block">Filtern</button>
-                </div>
-            </div>
-        </form>
-
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <input type="text" name="suchbegriff" class="form-control" placeholder="Eventname oder Ort" value="<?php echo htmlspecialchars($_GET['suchbegriff'] ?? ''); ?>">
+        </div>
+        <div class="form-group col-md-3">
+            <select name="kategorie" class="form-control">
+                <option value="">Kategorie wählen</option>
+                <option value="Musik" <?php if(($_GET['kategorie'] ?? '') == 'Musik') echo 'selected'; ?>>Musik</option>
+                <option value="Technologie" <?php if(($_GET['kategorie'] ?? '') == 'Technologie') echo 'selected'; ?>>Technologie</option>
+                <option value="Gaming" <?php if(($_GET['kategorie'] ?? '') == 'Gaming') echo 'selected'; ?>>Gaming</option>
+                <option value="Kultur" <?php if(($_GET['kategorie'] ?? '') == 'Kultur') echo 'selected'; ?>>Kultur</option>
+                <option value="Sport" <?php if(($_GET['kategorie'] ?? '') == 'Sport') echo 'selected'; ?>>Sport</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <input type="date" name="datum" class="form-control" value="<?php echo htmlspecialchars($_GET['datum'] ?? ''); ?>">
+        </div>
+        <div class="form-group col-md-2">
+            <input type="number" name="kapazitaet" class="form-control" placeholder="Kapazität ab" min="1" value="<?php echo htmlspecialchars($_GET['kapazitaet'] ?? ''); ?>">
+        </div>
+        <div class="form-group col-md-1">
+            <button type="submit" class="btn btn-primary btn-block">Filtern</button>
+        </div>
+    </div>
+</form>
         <?php if (!empty($events)): ?>
             <div class="row">
                 <?php foreach ($events as $event): ?>
@@ -214,6 +230,7 @@ $conn->close();
                                 <div class="d-flex justify-content-between align-items-center">
                                     <?php if (!is_null($event['preis']) && $event['preis'] > 0): ?>
                                         <p class="event-price"><?php echo number_format($event['preis'], 2, ',', '.'); ?> &euro;</p>
+                                        <a class="btn btn-primary" href="#" role="button">Kaufen</a>
                                     <?php else: ?>
                                         <p class="event-price">Kostenlos</p>
                                     <?php endif; ?>
@@ -235,5 +252,6 @@ $conn->close();
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="darkmode.js"></script>
 </body>
 </html>

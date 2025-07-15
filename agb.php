@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllEvents – Allgemeine Geschäftsbedingungen (AGB)</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="body.css">
     <style>
         body {
             background: #f8f9fa;
@@ -100,4 +101,5 @@
             Stand: Juli 2025 &nbsp;|&nbsp; AllEvents GmbH
         </div>
     </div>
+    <script src="darkmode.js"></script>
 </body>
